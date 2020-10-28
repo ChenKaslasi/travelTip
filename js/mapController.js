@@ -44,32 +44,25 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
             gMap.addListener('click',(ev) => {
                 // console.log(ev);
                 locationService.createLocation(ev)
+                renderTable()
             })
         })
 }
 
 
-renderTable()
 function renderTable() {
-    let locations = getLocations();
-    // let locations = getLocations();
-    let htmlStrings = locations.map((location) => {
+    let locations =locationService.loadLocationsFromStorage();
+    let strHtml = `<tr><th>id</th><th>name</th><th>createdAt</th></tr>`
+    let strHtmls = locations.map((location) => {
         return `
         <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>createdAt</th>
-            <th>updatedAt</th>
-        </tr>
-        <tr>
-            <td class="id">12345</td>
-            <td class="name">street name</td>
-            <td class="createdAt">28-10-2020</td>
-            <td class="updatedAt">30-10-2020</td>
+            <td class="id">${location.id}</td>
+            <td class="name">${location.name}</td>
+            <td class="createdAt">${location.createdAt}</td>
         </tr>`
     })
-    console.log(htmlstrings);
-    // document.querySelector('.locations-table') = htmlstrings
+    strHtml += strHtmls.join('');
+    document.querySelector('.locations-table').innerHTML = strHtml
 }
 
 

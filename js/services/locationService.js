@@ -1,6 +1,7 @@
 export const locationService = {
     gLocations,
     createLocation,
+    loadLocationsFromStorage,
 };
 
 import { storageService } from './storageService.js';
@@ -9,9 +10,7 @@ const API_KEY = 'AIzaSyAQAMCiYL5QhL2ZQBGzkxE1t7P2soWUT7Y';
 
 var gLocations = [];
 
-function getLocations() {
-   return storegeService.loadFromStorage('locationsDB')
-}
+
 
 
 function createLocation(ev) {
@@ -25,6 +24,7 @@ function createLocation(ev) {
         updatedAt: ''
     }
         gLocations.push(location)
+        saveLocationsToStorage()
         console.log(gLocations);
 }
 
