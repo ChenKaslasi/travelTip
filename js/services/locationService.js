@@ -2,9 +2,11 @@ export const locationService = {
     gLocations
 };
 
+import { storageService } from './storageService.js';
+
 const API_KEY = 'AIzaSyAQAMCiYL5QhL2ZQBGzkxE1t7P2soWUT7Y';
 
-var gLocations = []
+var gLocations = [];
 
 
 
@@ -18,17 +20,24 @@ function createLocation(ev) {
         updatedAt: ''
     }
     gLocations.push(location)
-    
+
 }
 
 
 
 
-getLocationName(32.07504454902344,34.91474729404208)
+getLocationName(32.07504454902344, 34.91474729404208)
 
-function getLocationName(lat,lng) {
+function getLocationName(lat, lng) {
     const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`
     fetch(link)
-    .then((res) => res.json()).then(ans => console.log(ans.results[0].formatted_address))
+        .then((res) => res.json()).then(ans => console.log(ans.results[0].formatted_address))
 }
 
+function saveLocationsToStorage() {
+    storageService.saveToStorage('locationsDB', gLocations);
+}
+
+function loadLocationsFromStorage() {
+    return storageService.loadFromStorage('locationsDB');
+}
