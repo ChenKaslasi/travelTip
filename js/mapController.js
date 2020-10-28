@@ -43,12 +43,16 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
             // console.log('Map!', gMap);
             gMap.addListener('click',(ev) => {
                 // console.log(ev);
-                locationService.createLocation(ev)
-                renderTable()
+                onCreateLocation(ev)
+                .then(renderTable)
             })
         })
 }
 
+
+function onCreateLocation(ev) {
+    return locationService.createLocation(ev)
+}
 
 function renderTable() {
     let locations =locationService.loadLocationsFromStorage();
@@ -96,7 +100,7 @@ function _connectGoogleApi() {
     const API_KEY = 'AIzaSyAQAMCiYL5QhL2ZQBGzkxE1t7P2soWUT7Y';
     var elGoogleApi = document.createElement('script');
     // elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
