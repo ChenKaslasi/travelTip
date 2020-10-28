@@ -54,6 +54,7 @@ function onSelectedLocation(ev) {
     .then(createLocation);
 }
 
+
 function onCreateLocation(ev) {
     return locationService.createLocation(ev)
 }
