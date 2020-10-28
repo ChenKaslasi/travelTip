@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  margin: 0;
+  line-height: 1.3;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+
+
+/* layout */
+
+body {
+  background-color: rgb(240, 149, 74);
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.location {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.weather {
+  background-color: green;
+}
+
+.main-content {
+  display: flex;
+}
+
+.information {
+  background-color: yellow;
+  margin-inline-end: 2rem;
+}
