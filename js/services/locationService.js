@@ -2,7 +2,6 @@ export const locationService = {
     gLocations,
     createLocation,
     loadLocationsFromStorage,
-    selectedLocation
 };
 
 import { storageService } from './storageService.js';
@@ -12,21 +11,25 @@ const API_KEY = 'AIzaSyAQAMCiYL5QhL2ZQBGzkxE1t7P2soWUT7Y';
 var gLocations = [];
 
 
-
-
-// function createLocation(name) {
-//     const location = {
-//         id: '1242',
-//         name: name,
-//         lat: 0.5,
-//         lng: 0.5,
-//         createdAt: Date.now(),
-//         updatedAt: ''
-//     }
-//         // gLocations.push(location)
-//         // saveLocationsToStorage()
-//         console.log(location);
-// }
+function createLocation(ev) {
+    return new Promise((resolve) => {
+        getLocationName(ev.latLng.lat(), ev.latLng.lng())
+        .then(ans => {
+            const location = {
+                id: '1242',
+                name: ans,
+                lat: ev.latLng.lat(),
+                lng: ev.latLng.lng(),
+                createdAt: Date.now(),
+                updatedAt: ''
+            }
+            console.log(location);
+            gLocations.push(location)
+            saveLocationsToStorage()
+            resolve(location)
+        })
+    }) 
+}
 
 
 
@@ -47,13 +50,4 @@ function loadLocationsFromStorage() {
 function saveLocationsToStorage() {
     storageService.saveToStorage('locationsDB', gLocations);
 
-}
-
-function selectedLocation(ev) {
-    const locationPrm = new Promise((resolve) => {
-            resolve(getLocationName(ev.latLng.lat(), ev.latLng.lng()));
-        })
-        return locationPrm
-        // getLocationName(ev.latLng.lat(), ev.latLng.lng())
-        //     .then(create)
 }
