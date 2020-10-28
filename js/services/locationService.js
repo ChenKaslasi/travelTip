@@ -1,34 +1,39 @@
 export const locationService = {
-    gLocations
+    gLocations,
+    createLocation,
 };
 
 const API_KEY = 'AIzaSyAQAMCiYL5QhL2ZQBGzkxE1t7P2soWUT7Y';
 
 var gLocations = []
 
+function getLocations() {
+   return storegeService.loadFromStorage('locationsDB')
+}
 
 
 function createLocation(ev) {
     const location = {
         id: '1242',
-        name: 'Ezra Unehemiah Street',
-        lat: 32.07504454902344,
-        lng: 34.91474729404208,
+        // name: getLocationName(ev.latLng.lat(),ev.latLng.lng()),
+        name: 'some name',
+        lat: ev.latLng.lat(),
+        lng: ev.latLng.lng(),
         createdAt: Date.now(),
         updatedAt: ''
     }
-    gLocations.push(location)
-    
+        gLocations.push(location)
+        console.log(gLocations);
 }
 
 
 
-
-getLocationName(32.07504454902344,34.91474729404208)
+// getLocationName(32.07504454902344,34.91474729404208)
 
 function getLocationName(lat,lng) {
     const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`
-    fetch(link)
-    .then((res) => res.json()).then(ans => console.log(ans.results[0].formatted_address))
+    return fetch(link)
+    .then((res) => res.json())
+    .then(ans => ans.results[0].formatted_address)
 }
 

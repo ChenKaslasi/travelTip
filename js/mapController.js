@@ -2,7 +2,6 @@ import { mapService } from './services/mapService.js';
 import { locationService } from './services/locationService.js';
 
 var gMap;
-// console.log('Main!');
 
 mapService.getLocs()
     .then(locs => console.log('locs', locs))
@@ -42,15 +41,35 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
             })
             // console.log('Map!', gMap);
             gMap.addListener('click',(ev) => {
-                console.log(ev);
-                // console.log('lat',ev.latLng.lat());
-                // console.log('lng',ev.latLng.lng());
+                // console.log(ev);
+                locationService.createLocation(ev)
             })
         })
 }
 
 
-
+renderTable()
+function renderTable() {
+    let locations = getLocations();
+    // let locations = getLocations();
+    let htmlStrings = locations.map((location) => {
+        return `
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>createdAt</th>
+            <th>updatedAt</th>
+        </tr>
+        <tr>
+            <td class="id">12345</td>
+            <td class="name">street name</td>
+            <td class="createdAt">28-10-2020</td>
+            <td class="updatedAt">30-10-2020</td>
+        </tr>`
+    })
+    console.log(htmlstrings);
+    // document.querySelector('.locations-table') = htmlstrings
+}
 
 
 function addMarker(loc) {
@@ -80,7 +99,7 @@ function getPosition() {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyAQAMCiYL5QhL2ZQBGzkxE1t7P2soWUT7Y'; //TODO: Enter your API Key
+    const API_KEY = 'AIzaSyAQAMCiYL5QhL2ZQBGzkxE1t7P2soWUT7Y';
     var elGoogleApi = document.createElement('script');
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
