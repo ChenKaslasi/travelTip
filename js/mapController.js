@@ -2,7 +2,7 @@ import { mapService } from './services/mapService.js';
 import { locationService } from './services/locationService.js';
 
 var gMap;
-// console.log('Main!');
+console.log('Main!');
 
 mapService.getLocs()
     .then(locs => console.log('locs', locs))
@@ -10,6 +10,7 @@ mapService.getLocs()
 window.onload = () => {
     initMap()
         .then(() => {
+
             addMarker({ lat: 32.0749831, lng: 34.9120554 });
         })
         .catch(console.log('INIT MAP ERROR'));
@@ -17,7 +18,7 @@ window.onload = () => {
     getPosition()
         .then(pos => {
 
-            // console.log('User position is:', pos.coords);
+            console.log('User position is:', pos.coords);
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -31,26 +32,18 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 
 
 export function initMap(lat = 32.0749831, lng = 34.9120554) {
-    // console.log('InitMap');
+    console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
-            // console.log('google available');
+            console.log('google available');
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
                 center: { lat, lng },
                 zoom: 15
             })
-            // console.log('Map!', gMap);
-            gMap.addListener('click',(ev) => {
-                console.log(ev.latLng.lat());
-                console.log(ev.latLng.lng());
-            })
+            console.log('Map!', gMap);
         })
 }
-
-
-
-
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
@@ -67,7 +60,7 @@ function panTo(lat, lng) {
 }
 
 function getPosition() {
-    // console.log('Getting Pos');
+    console.log('Getting Pos');
 
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
@@ -81,7 +74,8 @@ function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyAQAMCiYL5QhL2ZQBGzkxE1t7P2soWUT7Y'; //TODO: Enter your API Key
     var elGoogleApi = document.createElement('script');
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
+    // elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=initMap`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
