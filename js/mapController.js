@@ -41,17 +41,21 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             // console.log('Map!', gMap);
-            gMap.addListener('click',(ev) => {
+            gMap.addListener('click', (ev) => {
                 // console.log(ev);
-                locationService.createLocation(ev)
-                renderTable()
+                onSelectedLocation(ev)
+                // .then(renderTable)
             })
         })
 }
 
+function onSelectedLocation(ev) {
+    locationService.selectedLocation(ev)
+    .then(createLocation);
+}
 
 function renderTable() {
-    let locations =locationService.loadLocationsFromStorage();
+    let locations = locationService.loadLocationsFromStorage();
     let strHtml = `<tr><th>id</th><th>name</th><th>createdAt</th></tr>`
     let strHtmls = locations.map((location) => {
         return `

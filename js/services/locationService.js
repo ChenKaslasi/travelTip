@@ -2,6 +2,7 @@ export const locationService = {
     gLocations,
     createLocation,
     loadLocationsFromStorage,
+    selectedLocation
 };
 
 import { storageService } from './storageService.js';
@@ -13,20 +14,19 @@ var gLocations = [];
 
 
 
-function createLocation(ev) {
-    const location = {
-        id: '1242',
-        // name: getLocationName(ev.latLng.lat(),ev.latLng.lng()),
-        name: 'some name',
-        lat: ev.latLng.lat(),
-        lng: ev.latLng.lng(),
-        createdAt: Date.now(),
-        updatedAt: ''
-    }
-        gLocations.push(location)
-        saveLocationsToStorage()
-        console.log(gLocations);
-}
+// function createLocation(name) {
+//     const location = {
+//         id: '1242',
+//         name: name,
+//         lat: 0.5,
+//         lng: 0.5,
+//         createdAt: Date.now(),
+//         updatedAt: ''
+//     }
+//         // gLocations.push(location)
+//         // saveLocationsToStorage()
+//         console.log(location);
+// }
 
 
 
@@ -35,8 +35,8 @@ function createLocation(ev) {
 function getLocationName(lat, lng) {
     const link = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`
     return fetch(link)
-    .then((res) => res.json())
-    .then(ans => ans.results[0].formatted_address)
+        .then((res) => res.json())
+        .then(ans => ans.results[0].formatted_address)
 }
 
 
@@ -47,4 +47,13 @@ function loadLocationsFromStorage() {
 function saveLocationsToStorage() {
     storageService.saveToStorage('locationsDB', gLocations);
 
+}
+
+function selectedLocation(ev) {
+    const locationPrm = new Promise((resolve) => {
+            resolve(getLocationName(ev.latLng.lat(), ev.latLng.lng()));
+        })
+        return locationPrm
+        // getLocationName(ev.latLng.lat(), ev.latLng.lng())
+        //     .then(create)
 }
