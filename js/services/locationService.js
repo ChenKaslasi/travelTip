@@ -18,7 +18,10 @@ function createLocation(ev) {
         updatedAt: ''
     }
     gLocations.push(location)
+    
 }
+
+
 
 
 getLocationName(32.07504454902344,34.91474729404208)
