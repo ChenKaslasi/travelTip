@@ -1,4 +1,5 @@
-import { mapService } from './services/mapService.js'
+import { mapService } from './services/mapService.js';
+import { locationService } from './services/locationService.js';
 
 var gMap;
 console.log('Main!');
