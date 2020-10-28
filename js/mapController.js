@@ -2,10 +2,6 @@ import { mapService } from './services/mapService.js';
 import { locationService } from './services/locationService.js';
 
 var gMap;
-<<<<<<< HEAD
-=======
-console.log('Main!');
->>>>>>> 2f97c5d9160d299e1461ba257764708618efdc51
 
 mapService.getLocs()
     .then(locs => console.log('locs', locs))
@@ -52,7 +48,6 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
         })
 }
 
-<<<<<<< HEAD
 
 renderTable()
 function renderTable() {
@@ -78,8 +73,6 @@ function renderTable() {
 }
 
 
-=======
->>>>>>> 2f97c5d9160d299e1461ba257764708618efdc51
 function addMarker(loc) {
     var marker = new google.maps.Marker({
         position: loc,
