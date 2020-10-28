@@ -4,21 +4,11 @@ export const locationService = {
 
 const API_KEY = 'AIzaSyAQAMCiYL5QhL2ZQBGzkxE1t7P2soWUT7Y';
 
-var gLocations = [
-    {
-        id: 1,
-        name: 'Israel'
-    },
-    {
-        id: 2,
-        name: 'England'
-    }
-
-]
+var gLocations = []
 
 
 
-function createLocation() {
+function createLocation(ev) {
     const location = {
         id: '1242',
         name: 'Ezra Unehemiah Street',
@@ -27,7 +17,7 @@ function createLocation() {
         createdAt: Date.now(),
         updatedAt: ''
     }
-    return location
+    gLocations.push(location)
 }
 
 
